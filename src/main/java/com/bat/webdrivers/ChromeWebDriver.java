@@ -14,14 +14,14 @@ public class ChromeWebDriver extends BaseWebDriver {
     @Value("${chrome.binary-path}")
     private String binaryPath;
 
-    @Value("${chrome.disable-notifications}")
-    private boolean disableNotification;
-    @Value("${chrome.disable-infobar}")
-    private boolean disableInfoBar;
+    @Value("${chrome.enable-notifications}")
+    private boolean enableNotifications;
+    @Value("${chrome.enable-info-bar}")
+    private boolean enableInfoBar;
     @Value("${chrome.start-maximized}")
     private boolean startMaximized;
-    @Value("${chrome.ignore-bad-ssl}")
-    private boolean ignoreBadSSL;
+    @Value("${chrome.accept-bad-ssl}")
+    private boolean acceptBadSSL;
 
     @Value("${chrome.use-proxy}")
     private boolean useProxy;
@@ -46,11 +46,11 @@ public class ChromeWebDriver extends BaseWebDriver {
                 options.setBinary(binaryPath);
             }
 
-            if(disableNotification) {
+            if(!enableNotifications) {
                 options.addArguments("--disable-notifications");
             }
 
-            if(disableInfoBar) {
+            if(!enableInfoBar) {
                 options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
             }
 
@@ -58,7 +58,7 @@ public class ChromeWebDriver extends BaseWebDriver {
                 options.addArguments("--start-maximized");
             }
 
-            if(ignoreBadSSL) {
+            if(acceptBadSSL) {
                 options.addArguments("ignore-certificate-errors");
             }
 
