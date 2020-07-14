@@ -17,7 +17,7 @@ public class ChromeWebDriver extends BaseWebDriver {
     @Value("${chrome.disable-notifications}")
     private boolean disableNotification;
     @Value("${chrome.disable-infobar}")
-    private boolean disableInforbar;
+    private boolean disableInfoBar;
     @Value("${chrome.start-maximized}")
     private boolean startMaximized;
     @Value("${chrome.ignore-bad-ssl}")
@@ -50,7 +50,7 @@ public class ChromeWebDriver extends BaseWebDriver {
                 ops.addArguments("--disable-notifications");
             }
 
-            if(disableInforbar) {
+            if(disableInfoBar) {
                 ops.addArguments("disable-infobars");
             }
 
@@ -85,21 +85,5 @@ public class ChromeWebDriver extends BaseWebDriver {
         System.setProperty("webdriver.chrome.driver", driverPath);
         System.setProperty(ChromeDriverService.CHROME_DRIVER_EXE_PROPERTY, driverPath);
         return new ChromeDriver(ops);
-    }
-
-    @Override
-    public String toString() {
-        return "ChromeWebDriver{" +
-                "binaryPath='" + binaryPath + '\'' +
-                ", disableNotification=" + disableNotification +
-                ", disableInforbar=" + disableInforbar +
-                ", startMaximized=" + startMaximized +
-                ", ignoreBadSSL=" + ignoreBadSSL +
-                ", disableProxy=" + disableProxy +
-                ", proxyAddress='" + proxyAddress + '\'' +
-                ", profilePath='" + profilePath + '\'' +
-                ", logPath='" + logPath + '\'' +
-                ", silentLog=" + silentLog +
-                '}';
     }
 }
