@@ -39,34 +39,38 @@ public class ChromeWebDriver extends BaseWebDriver {
     public ChromeWebDriver() {}
 
     public ChromeDriver getChromeDriver() {
-        ChromeOptions ops = new ChromeOptions();
+        ChromeOptions options = new ChromeOptions();
 
         try{
             if(!isEmpty(binaryPath)) {
-                ops.setBinary(binaryPath);
+                options.setBinary(binaryPath);
             }
 
             if(disableNotification) {
-                ops.addArguments("--disable-notifications");
+                options.addArguments("--disable-notifications");
             }
 
             if(disableInfoBar) {
-                ops.addArguments("disable-infobars");
+                options.addArguments("disable-infobars");
             }
 
             if(startMaximized) {
-                ops.addArguments("--start-maximized");
+                options.addArguments("--start-maximized");
+            }
+
+            if(ignoreBadSSL) {
+                options.addArguments("ignore-certificate-errors");
             }
 
             if(!disableProxy && !isEmpty(proxyAddress)) {
-                ops.addArguments("--proxy-server=" + proxyAddress);
+                options.addArguments("--proxy-server=" + proxyAddress);
             }
 
             if(!isEmpty(profilePath)) {
-                ops.addArguments("user-data-dir=" + profilePath);// Don't give default folder
+                options.addArguments("user-data-dir=" + profilePath);// Don't give default folder
             }
 
-            // ops.setPageLoadStrategy(PageLoadStrategy.EAGER);
+            // options.setPageLoadStrategy(PageLoadStrategy.EAGER);
 
             if(!isEmpty(logPath)) {
                 System.setProperty(ChromeDriverService.CHROME_DRIVER_LOG_PROPERTY, logPath);
@@ -84,6 +88,6 @@ public class ChromeWebDriver extends BaseWebDriver {
 
         System.setProperty("webdriver.chrome.driver", driverPath);
         System.setProperty(ChromeDriverService.CHROME_DRIVER_EXE_PROPERTY, driverPath);
-        return new ChromeDriver(ops);
+        return new ChromeDriver(options);
     }
 }
