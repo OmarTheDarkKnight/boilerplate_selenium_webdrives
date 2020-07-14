@@ -51,7 +51,7 @@ public class ChromeWebDriver extends BaseWebDriver {
             }
 
             if(disableInfoBar) {
-                options.addArguments("disable-infobars");
+                options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
             }
 
             if(startMaximized) {
