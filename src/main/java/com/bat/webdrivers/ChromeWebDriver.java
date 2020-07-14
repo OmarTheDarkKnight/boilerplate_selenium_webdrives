@@ -23,8 +23,8 @@ public class ChromeWebDriver extends BaseWebDriver {
     @Value("${chrome.ignore-bad-ssl}")
     private boolean ignoreBadSSL;
 
-    @Value("${chrome.disable-proxy}")
-    private boolean disableProxy;
+    @Value("${chrome.use-proxy}")
+    private boolean useProxy;
     @Value("${chrome.proxy-server}")
     private String proxyAddress;
 
@@ -62,7 +62,7 @@ public class ChromeWebDriver extends BaseWebDriver {
                 options.addArguments("ignore-certificate-errors");
             }
 
-            if(!disableProxy && !isEmpty(proxyAddress)) {
+            if(useProxy && !isEmpty(proxyAddress)) {
                 options.addArguments("--proxy-server=" + proxyAddress);
             }
 
