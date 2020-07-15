@@ -3,7 +3,7 @@ package com.bat.webdrivers;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
-import org.openqa.selenium.firefox.internal.ProfilesIni;
+import org.openqa.selenium.firefox.ProfilesIni;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
