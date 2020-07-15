@@ -1,5 +1,6 @@
 # boilerplate_selenium_webdrives
 Boiler plate code to use the basic browser web drivers in selenium
+Only Chrome, Edge and Firefox drivers are added here.
 
 Configurations for the browsers are read from properties file. It is located inside 
 > **src/main/resources/browser_config,properties**
