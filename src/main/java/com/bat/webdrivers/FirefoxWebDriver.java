@@ -29,6 +29,8 @@ public class FirefoxWebDriver extends BaseWebDriver {
 
     @Value("${firefox.profile}")
     private String firefoxProfile;
+    @Value("${firefox.open-in-private-mode}")
+    private boolean openPrivateMode;
 
     @Value("${firefox.log}")
     private String logPath;
@@ -50,6 +52,9 @@ public class FirefoxWebDriver extends BaseWebDriver {
                 prof = allProf.getProfile(firefoxProfile);
             } else {
                 prof = new FirefoxProfile();
+                if(openPrivateMode) {
+                    options.addArguments("-private");
+                }
             }
 
             if(!enableNotification) {
