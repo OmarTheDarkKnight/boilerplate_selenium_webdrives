@@ -10,7 +10,7 @@ public class WebDriverProvider {
     @Autowired
     private ChromeWebDriver chromeWebDriver;
 
-    public ChromeDriver getChromeWebDriver() {
+    public ChromeDriver getChromeWebDriver() throws Exception {
         return chromeWebDriver.getChromeDriver();
     }
 }
