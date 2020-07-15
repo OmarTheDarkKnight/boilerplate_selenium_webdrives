@@ -9,7 +9,14 @@ public class MainClass {
     public static void main(String[] args) {
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(SpringConfig.class);
         WebDriverProvider webDriverProvider = applicationContext.getBean("webDriverProvider", WebDriverProvider.class);
-        WebDriver webDriver = webDriverProvider.getChromeWebDriver();
-        webDriver.get("http://github.com");
+
+        // for chrome
+        try {
+            WebDriver chromeDriver = webDriverProvider.getChromeWebDriver();
+            chromeDriver.get("http://github.com");
+        } catch (Exception exception) {
+            System.out.println("FAILED TO INITIATE CHROME");
+            System.out.println(exception.getMessage());
+        }
     }
 }
