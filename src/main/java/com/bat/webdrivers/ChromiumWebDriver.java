@@ -18,7 +18,7 @@ public abstract class ChromiumWebDriver extends BaseWebDriver {
     public abstract String getProxyAddress();
     public abstract String getProfilePath();
 
-    protected void setCommonChromiumPreferences(BaseWebDriver baseWebDriver, ChromiumOptions<?> options) {
+    protected void setChromiumBrowserPreferences(ChromiumOptions<?> options) {
         if(!isEmpty(getBinaryPath())) {
             options.setBinary(getBinaryPath());
         }
