@@ -6,6 +6,9 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class ChromeWebDriver extends BaseWebDriver {
     @Value("${chrome.driver-path}")
@@ -22,6 +25,8 @@ public class ChromeWebDriver extends BaseWebDriver {
     private boolean startMaximized;
     @Value("${chrome.accept-bad-ssl}")
     private boolean acceptBadSSL;
+    @Value("${chrome.enable-extensions}")
+    private boolean enableExtension;
 
     @Value("${chrome.use-proxy}")
     private boolean useProxy;
@@ -35,6 +40,8 @@ public class ChromeWebDriver extends BaseWebDriver {
     private String logPath;
     @Value("${chrome.silent-log}")
     private boolean silentLog;
+
+    private List<String> excludeSwitches = new ArrayList<String>();
 
     public ChromeWebDriver() {}
 
@@ -51,7 +58,8 @@ public class ChromeWebDriver extends BaseWebDriver {
             }
 
             if(!enableInfoBar) {
-                options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
+                excludeSwitches.add("enable-automation");
+//                options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
             }
 
             if(startMaximized) {
@@ -60,6 +68,11 @@ public class ChromeWebDriver extends BaseWebDriver {
 
             if(acceptBadSSL) {
                 options.addArguments("ignore-certificate-errors");
+            }
+
+            if(!enableExtension) {
+                excludeSwitches.add("load-extension");
+//                options.setExperimentalOption("excludeSwitches", new String[]{"load-extension"});
             }
 
             if(useProxy && !isEmpty(proxyAddress)) {
@@ -78,6 +91,10 @@ public class ChromeWebDriver extends BaseWebDriver {
 
             if(silentLog) {
                 System.setProperty(ChromeDriverService.CHROME_DRIVER_SILENT_OUTPUT_PROPERTY, Boolean.toString(silentLog));
+            }
+
+            if(!excludeSwitches.isEmpty()) {
+                options.setExperimentalOption("excludeSwitches", excludeSwitches.toArray());
             }
 
         } catch (Exception exception) {
