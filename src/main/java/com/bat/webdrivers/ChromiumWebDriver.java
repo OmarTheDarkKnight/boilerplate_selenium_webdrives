@@ -17,6 +17,8 @@ public abstract class ChromiumWebDriver extends BaseWebDriver {
     public abstract boolean isUseProxy();
     public abstract String getProxyAddress();
     public abstract String getProfilePath();
+    public abstract boolean isOpenPrivateMode();
+    public abstract String getPrivateModeString();
 
     protected void setChromiumBrowserPreferences(ChromiumOptions<?> options) {
         if(!isEmpty(getBinaryPath())) {
@@ -47,8 +49,12 @@ public abstract class ChromiumWebDriver extends BaseWebDriver {
             options.addArguments("--proxy-server=" + getProxyAddress());
         }
 
-        if(!isEmpty(getProfilePath())) {
-            options.addArguments("user-data-dir=" + getProfilePath());// Don't give default folder
+        if(isOpenPrivateMode()) {
+            options.addArguments(getPrivateModeString());
+        } else {
+            if(!isEmpty(getProfilePath())) {
+                options.addArguments("user-data-dir=" + getProfilePath());// Don't give default folder
+            }
         }
 
         if(!excludeSwitches.isEmpty()) {

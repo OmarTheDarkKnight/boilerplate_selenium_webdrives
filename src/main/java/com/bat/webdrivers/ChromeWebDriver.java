@@ -32,6 +32,9 @@ public class ChromeWebDriver extends ChromiumWebDriver {
 
     @Value("${chrome.profile}")
     private String profilePath;
+    @Value("${chrome.open-in-private-mode}")
+    private boolean openPrivateMode;
+    private String privateModeString = "--incognito";
 
     @Value("${chrome.log}")
     private String logPath;
@@ -109,5 +112,15 @@ public class ChromeWebDriver extends ChromiumWebDriver {
     @Override
     public String getProfilePath() {
         return profilePath;
+    }
+
+    @Override
+    public boolean isOpenPrivateMode() {
+        return openPrivateMode;
+    }
+
+    @Override
+    public String getPrivateModeString() {
+        return privateModeString;
     }
 }

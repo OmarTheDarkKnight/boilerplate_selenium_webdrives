@@ -32,6 +32,9 @@ public class EdgeWebDriver extends ChromiumWebDriver {
 
     @Value("${edge.profile}")
     private String profilePath;
+    @Value("${edge.open-in-private-mode}")
+    private boolean openPrivateMode;
+    private String privateModeString = "--inPrivate";
 
     @Value("${edge.log}")
     private String logPath;
@@ -114,5 +117,15 @@ public class EdgeWebDriver extends ChromiumWebDriver {
     @Override
     public String toString() {
         return "EdgeWebDriver";
+    }
+
+    @Override
+    public boolean isOpenPrivateMode() {
+        return openPrivateMode;
+    }
+
+    @Override
+    public String getPrivateModeString() {
+        return privateModeString;
     }
 }
