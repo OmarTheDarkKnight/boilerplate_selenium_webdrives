@@ -30,5 +30,14 @@ public class MainClass {
             System.out.println("FAILED TO INITIATE FIREFOX");
             System.out.println(exception.getMessage());
         }
+
+        // for edge
+        try {
+            WebDriver edgeDriver = webDriverProvider.getEdgeWebDriver();
+            edgeDriver.get("http://yahoo.com");
+        } catch (Exception exception) {
+            System.out.println("FAILED TO INITIATE EDGE");
+            System.out.println(exception.getMessage());
+        }
     }
 }
