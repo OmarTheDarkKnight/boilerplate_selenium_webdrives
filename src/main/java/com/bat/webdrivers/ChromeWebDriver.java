@@ -6,11 +6,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Component
-public class ChromeWebDriver extends BaseWebDriver {
+public class ChromeWebDriver extends ChromiumWebDriver {
     @Value("${chrome.driver-path}")
     private String driverPath;
 
@@ -41,8 +38,6 @@ public class ChromeWebDriver extends BaseWebDriver {
     @Value("${chrome.silent-log}")
     private boolean silentLog;
 
-    private List<String> excludeSwitches = new ArrayList<String>();
-
     public ChromeWebDriver() {}
 
     @Override
@@ -50,40 +45,7 @@ public class ChromeWebDriver extends BaseWebDriver {
         ChromeOptions options = new ChromeOptions();
 
         try{
-            if(!isEmpty(binaryPath)) {
-                options.setBinary(binaryPath);
-            }
-
-            if(!enableNotifications) {
-                options.addArguments("--disable-notifications");
-            }
-
-            if(!enableInfoBar) {
-                excludeSwitches.add("enable-automation");
-//                options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
-            }
-
-            if(startMaximized) {
-                options.addArguments("--start-maximized");
-            }
-
-            if(acceptBadSSL) {
-                options.addArguments("ignore-certificate-errors");
-            }
-
-            if(!enableExtension) {
-                excludeSwitches.add("load-extension");
-//                options.setExperimentalOption("excludeSwitches", new String[]{"load-extension"});
-            }
-
-            if(useProxy && !isEmpty(proxyAddress)) {
-                options.addArguments("--proxy-server=" + proxyAddress);
-            }
-
-            if(!isEmpty(profilePath)) {
-                options.addArguments("user-data-dir=" + profilePath);// Don't give default folder
-            }
-
+            setChromiumBrowserPreferences(options);
             // options.setPageLoadStrategy(PageLoadStrategy.EAGER);
 
             if(!isEmpty(logPath)) {
@@ -94,10 +56,6 @@ public class ChromeWebDriver extends BaseWebDriver {
                 System.setProperty(ChromeDriverService.CHROME_DRIVER_SILENT_OUTPUT_PROPERTY, Boolean.toString(silentLog));
             }
 
-            if(!excludeSwitches.isEmpty()) {
-                options.setExperimentalOption("excludeSwitches", excludeSwitches.toArray());
-            }
-
         } catch (Exception exception) {
             System.out.println("FAILED TO INITIATE CHROME DRIVER");
             throw new Exception("CHROME DRIVER EXCEPTION : " + exception.getMessage());
@@ -106,5 +64,50 @@ public class ChromeWebDriver extends BaseWebDriver {
         System.setProperty("webdriver.chrome.driver", driverPath);
         System.setProperty(ChromeDriverService.CHROME_DRIVER_EXE_PROPERTY, driverPath);
         return new ChromeDriver(options);
+    }
+
+    @Override
+    public String getBinaryPath() {
+        return binaryPath;
+    }
+
+    @Override
+    public boolean isEnableNotifications() {
+        return enableNotifications;
+    }
+
+    @Override
+    public boolean isEnableInfoBar() {
+        return enableInfoBar;
+    }
+
+    @Override
+    public boolean isStartMaximized() {
+        return startMaximized;
+    }
+
+    @Override
+    public boolean isAcceptBadSSL() {
+        return acceptBadSSL;
+    }
+
+    @Override
+    public boolean isEnableExtension() {
+        return enableExtension;
+    }
+
+    @Override
+    public boolean isUseProxy() {
+        return useProxy;
+    }
+
+    @Override
+    public String getProxyAddress() {
+        return proxyAddress;
+    }
+
+    @Override
+    public String getProfilePath() {
+        return profilePath;
     }
 }
