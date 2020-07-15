@@ -45,7 +45,8 @@ public class ChromeWebDriver extends BaseWebDriver {
 
     public ChromeWebDriver() {}
 
-    public ChromeDriver getChromeDriver() {
+    @Override
+    public ChromeDriver getChromeDriver() throws Exception {
         ChromeOptions options = new ChromeOptions();
 
         try{
@@ -99,8 +100,7 @@ public class ChromeWebDriver extends BaseWebDriver {
 
         } catch (Exception exception) {
             System.out.println("FAILED TO INITIATE CHROME DRIVER");
-            System.out.println("Please check the properties file and ensure the values are given properly");
-            System.out.println(exception.getMessage());
+            throw new Exception("CHROME DRIVER EXCEPTION : " + exception.getMessage());
         }
 
         System.setProperty("webdriver.chrome.driver", driverPath);
