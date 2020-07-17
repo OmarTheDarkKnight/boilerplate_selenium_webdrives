@@ -1,5 +1,6 @@
 package com.bat.webdrivers;
 
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.chromium.ChromiumOptions;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public abstract class ChromiumWebDriver extends BaseWebDriver {
     public abstract String getProfilePath();
     public abstract boolean isOpenPrivateMode();
     public abstract String getPrivateModeString();
+    public abstract String getPageLoadStrategy();
 
     protected void setChromiumBrowserPreferences(ChromiumOptions<?> options) {
         if(!isEmpty(getBinaryPath())) {
@@ -55,6 +57,15 @@ public abstract class ChromiumWebDriver extends BaseWebDriver {
             if(!isEmpty(getProfilePath())) {
                 options.addArguments("user-data-dir=" + getProfilePath());// Don't give default folder
             }
+        }
+
+        String pageLoadStrategy = getPageLoadStrategy();
+        if(
+                pageLoadStrategy.equalsIgnoreCase("normal")
+                || pageLoadStrategy.equalsIgnoreCase("eager")
+                || pageLoadStrategy.equalsIgnoreCase("none")
+        ) {
+            options.setPageLoadStrategy(PageLoadStrategy.fromString(pageLoadStrategy));
         }
 
         if(!excludeSwitches.isEmpty()) {

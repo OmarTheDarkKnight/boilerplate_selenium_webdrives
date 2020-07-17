@@ -1,5 +1,6 @@
 package com.bat.webdrivers;
 
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
@@ -35,6 +36,9 @@ public class FirefoxWebDriver extends BaseWebDriver {
     @Value("${firefox.log}")
     private String logPath;
 
+    @Value("${firefox.page-load-strategy}")
+    private String pageLoadStrategy;
+
     public FirefoxWebDriver() {}
 
     @Override
@@ -66,7 +70,13 @@ public class FirefoxWebDriver extends BaseWebDriver {
                 prof.setAssumeUntrustedCertificateIssuer(false);
             }
 
-            // options.setPageLoadStrategy(PageLoadStrategy.EAGER);
+            if(
+                    pageLoadStrategy.equalsIgnoreCase("normal")
+                    || pageLoadStrategy.equalsIgnoreCase("eager")
+                    || pageLoadStrategy.equalsIgnoreCase("none")
+            ) {
+                 options.setPageLoadStrategy(PageLoadStrategy.fromString(pageLoadStrategy));
+            }
 
             if(useProxy && !isEmpty(proxyHost) && !isEmpty(proxyPort)) {
                 prof.setPreference("network.proxy.type", 1);

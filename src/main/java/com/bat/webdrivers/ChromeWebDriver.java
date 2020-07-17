@@ -34,12 +34,14 @@ public class ChromeWebDriver extends ChromiumWebDriver {
     private String profilePath;
     @Value("${chrome.open-in-private-mode}")
     private boolean openPrivateMode;
-    private String privateModeString = "--incognito";
 
     @Value("${chrome.log}")
     private String logPath;
     @Value("${chrome.silent-log}")
     private boolean silentLog;
+
+    @Value("${chrome.page-load-strategy}")
+    private String pageLoadStrategy;
 
     public ChromeWebDriver() {}
 
@@ -121,6 +123,11 @@ public class ChromeWebDriver extends ChromiumWebDriver {
 
     @Override
     public String getPrivateModeString() {
-        return privateModeString;
+        return "--incognito";
+    }
+
+    @Override
+    public String getPageLoadStrategy() {
+        return pageLoadStrategy;
     }
 }
