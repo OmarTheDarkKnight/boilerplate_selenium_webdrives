@@ -47,6 +47,7 @@ public class WebDriverProvider {
         else throw new Exception("Invalid browser name provided");
 
         // add implicit wait time before returning
-        return (WebDriver) driver.manage().timeouts().implicitlyWait(implicitWaitTime, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        return driver;
     }
 }
