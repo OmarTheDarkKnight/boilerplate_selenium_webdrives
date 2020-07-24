@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.bat</groupId>
-    <artifactId>SeleniumBasic</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>selenium-basic</artifactId>
+    <version>grey</version>
 
     <dependencies>
         <dependency>

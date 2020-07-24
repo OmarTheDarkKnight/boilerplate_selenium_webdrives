@@ -1,8 +1,5 @@
-package com.bat.webdrivers.provider;
+package webdrivers.provider;
 
-import com.bat.webdrivers.ChromeWebDriver;
-import com.bat.webdrivers.EdgeWebDriver;
-import com.bat.webdrivers.FirefoxWebDriver;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -10,6 +7,9 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import webdrivers.ChromeWebDriver;
+import webdrivers.EdgeWebDriver;
+import webdrivers.FirefoxWebDriver;
 
 import java.util.concurrent.TimeUnit;
 
